@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>Santo Terço</title>
+    <meta name="theme-color" content="#7B0000" />
+    <link rel="canonical" href="https://santo-terco.static.domains/" />
+    <link rel="apple-touch-icon" href="https://placehold.co/192x192/7B0000/ffffff?text=Terço" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="icon" type="image/png" sizes="32x32" href="https://placehold.co/32x32/7B0000/ffffff?text=ST" />
+    <link rel="icon" type="image/png" sizes="16x16" href="https://placehold.co/16x16/7B0000/ffffff?text=ST" />
+    <link rel="manifest" id="manifest-link" href="manifest.json" />
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body ontouchstart="">
+    <div id="app">
+      <header>
+        <h1>
+          <span class="cross">†</span>
+          Santo Terço
+        </h1>
+        <p>Meditações oficiais da Santa Sé (Vaticano)</p>
+      </header>
+
+      <main>
+        <div class="zoom-control-deck">
+          <button id="increase-font">A+</button>
+          <button id="decrease-font">A-</button>
+        </div>
+        <div class="prayer-content">
+          <h3>Sinal da Cruz</h3>
+          <div class="font-zoom">
+            Em nome do Pai, do Filho e do Espírito Santo. Amém.
+          </div>
+          <h3>Intenções</h3>
+          <div class="font-zoom">&laquo;coloque as suas intenções&raquo;</div>
+          <h3>Oferecimento</h3>
+          <div class="font-zoom">
+            Divino Jesus, eu vos ofereço este terço que vou rezar, contemplando
+            os mistérios de nossa Redenção. Concedei-me, pela intercessão de
+            Maria, vossa Mãe Santíssima, a quem me dirijo, as graças necessárias
+            para bem rezá-lo para ganhar as indulgências desta santa devoção.
+          </div>
+          <h3>Credo</h3>
+          <div class="font-zoom">
+            Creio em Deus Pai todo-poderoso, Criador do céu e da terra, e em
+            Jesus Cristo, seu único Filho, nosso Senhor, que foi concebido pelo
+            poder do Espírito Santo, nasceu da Virgem Maria, padeceu sob Pôncio
+            Pilatos, foi crucificado, morto e sepultado; desceu à mansão dos
+            mortos; ressuscitou ao terceiro dia; subiu aos céus, está sentado à
+            direita de Deus Pai todo poderoso, donde há de vir julgar os vivos e
+            os mortos. Creio no Espírito Santo, na Santa Igreja Católica, na
+            comunhão dos santos, na remissão dos pecados, na ressurreição da
+            carne e na vida eterna. Amém.
+          </div>
+          <h3>Pai Nosso</h3>
+          <div class="font-zoom">
+            Pai Nosso que estais nos céus, santificado seja o Vosso nome, venha
+            a nós o Vosso reino, seja feita a vossa vontade, assim na terra como
+            no céu. O pão nosso de cada dia nos dai hoje; perdoai-nos as nossa
+            ofensas, assim como nós perdoamos a quem nos tem ofendido e não nos
+            deixeis cair em tentação, mas livrai-nos do mal. Amém.
+          </div>
+
+          <div class="font-zoom">
+            As 3 primeiras Ave Marias reza-se em honra a:
+          </div>
+          <ol class="font-zoom">
+            <li>Deus Pai que nos criou</li>
+            <li>Deus Filho que nos remiu</li>
+            <li>Espírito Santo que nos guia e nos santifica</li>
+          </ol>
+
+          <h3>Ave Maria</h3>
+          <div class="font-zoom">
+            Ave Maria cheia de graças, o Senhor é convosco, bendita sois vós
+            entre as mulheres e bendito é o fruto do vosso ventre Jesus. Santa
+            Maria Mãe de Deus, rogai por nós pecadores, agora e na hora de nossa
+            morte. Amém.
+          </div>
+          <h3>Glória</h3>
+          <div class="font-zoom">
+            Glória ao Pai, ao Filho e o Espírito Santo. Como era no princípio,
+            agora é sempre. Amém.
+          </div>
+          <h3>Jaculatória</h3>
+          <div class="font-zoom">
+            Oh! Meu Jesus, perdoai-nos, livrai-nos do fogo do inferno, levai as
+            almas todas para o céu e socorrei principalmente as que mais
+            precisarem.
+          </div>
+        </div>
+
+        <h2 id="current-day"></h2>
+        <div id="mystery-type-box">
+          <span id="mystery-type"></span>
+        </div>
+
+        <ul id="mysteries-list">
+          <div id="loading">
+            <div class="spinner"></div>
+          </div>
+        </ul>
+        <div class="prayer-content">
+          <h3>Agradecimento</h3>
+          <div class="font-zoom">
+            Infinitas graças vos damos, Soberana Rainha, pelos benefícios que
+            todos os dias recebemos de vossas mãos liberais. Dignai-vos, agora e
+            para sempre, tomar-nos debaixo do vosso poderoso amparo e para mais
+            vos agradecer, vos saudamos com uma Salve Rainha
+          </div>
+          <h3>Salve Rainha</h3>
+          <div class="font-zoom">
+            Salve Rainha, Mãe de Misericórdia, vida, doçura, esperança nossa,
+            salve! A vós bradamos, os degredados filhos de Eva; a vós suspiramos
+            gemendo e chorando neste vale de lágrimas. Eia, pois, advogada nossa
+            esses vossos olhos misericordiosos a nós volvei, e depois deste
+            desterro nos mostrai a Jesus, bendito fruto do vosso ventre, ó
+            Clemente, ó Piedosa, ó Doce, sempre virgem Maria. Rogai por nós,
+            Santa Mãe de Deus, para que sejamos dignos das promessas de Cristo.
+            Amém
+          </div>
+          <h3>Sinal da Cruz</h3>
+          <div class="font-zoom">
+            Em nome do Pai, do Filho e do Espírito Santo. Amém.
+          </div>
+        </div>
+      </main>
+
+      <section>
+        <h3 class="title-day-selector">Ver mistérios de outro dia</h3>
+        <div id="day-selector"></div>
+      </section>
+
+      <footer>
+        <p>Santo Terço | Que Deus nos guie na fé.</p>
+        <p>Feito por A.Nardin</p>
+      </footer>
+    </div>
+
+    <div id="pwa-install-prompt" class="pwa-message hidden">
+      Instale este app para acesso rápido e offline!
+      <button onclick="installPWA()">Instalar</button>
+    </div>
+
+    <script async defer src="script.js"></script>
+  </body>
+</html>

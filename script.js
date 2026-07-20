@@ -281,6 +281,13 @@ const MYSTERIES = [
 
 const dayNamesShort = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SÁB"];
 
+function getMysteryIconLabel(imageUrl) {
+  if (!imageUrl) return "✦";
+
+  const text = imageUrl.replace(IMAGE_BASE_URL, "");
+  return decodeURIComponent(text) || "✦";
+}
+
 /**
  * 2. Função principal para exibir os mistérios
  * @param {number} dayIndex - O índice do dia da semana (0-6)
@@ -294,42 +301,30 @@ function displayMysteries(dayIndex, isToday = false) {
   const mysteriesListEl = document.getElementById("mysteries-list");
   const loadingEl = document.getElementById("loading");
 
-  // 1. Oculta o loading (se existir)
   if (loadingEl) loadingEl.style.display = "none";
 
-  // 2. Define o título e a classe de cor
   currentDayEl.textContent = `${data.dayName} ${isToday ? "(Hoje)" : ""}`;
   mysteryTypeEl.textContent = data.type;
 
-  // Remove classes de cor antigas e adiciona a nova
-  const colorClasses = [
-    "color-glorious",
-    "color-joyful",
-    "color-sorrowful",
-    "color-luminous",
-  ];
-  // mysteryTypeBoxEl.classList.remove(...colorClasses);
-  //  mysteryTypeBoxEl.classList.add(data.colorClass);
+  mysteryTypeBoxEl.className = `mystery-type-box ${data.colorClass}`;
 
-  // 3. Renderiza a lista de mistérios com títulos, imagens e meditações
   mysteriesListEl.innerHTML = data.mysteries
     .map(
       (m, index) => `
                 <li>
-										<img src="${m.imageUrl}" alt="Ícone do Mistério: ${m.title}" class="mystery-image" loading="lazy" onerror="this.src='${IMAGE_BASE_URL}Erro'">
+                    <div class="mystery-icon ${data.colorClass}" aria-hidden="true">${getMysteryIconLabel(m.imageUrl)}</div>
                     <div class="mystery-content">
                         <div class="mystery-header">
                             <h4 class="mystery-title">${index + 1}º - ${m.title.replace(/(\dº - )/, "")}</h4>
                         </div>
                         <p class="meditation-text">${m.meditation}</p>
-												${createPrayerCounterHtml(index)}
+                        ${createPrayerCounterHtml(index)}
                     </div>
                 </li>
             `,
     )
     .join("");
 
-  // 4. Atualiza os botões de seleção de dia
   document.querySelectorAll("#day-selector button").forEach((button, index) => {
     button.classList.remove("active");
     if (index === dayIndex) {
@@ -347,6 +342,7 @@ function setupDaySelector() {
     .map(
       (name, index) => `
                 <button
+                    class="pure-button day-button"
                     data-day-index="${index}"
                     onclick="displayMysteries(${index})"
                 >
@@ -419,7 +415,7 @@ function createPrayerCounterHtml(mysteryIndex) {
   // O container de orações por dezena, com o botão de reset específico.
   return `
                 <div class="prayer-counter-deck">
-                    <div style="grid-column: 1 / -1; text-align: center; font-size: 0.85rem; font-weight: 700; color: #777; margin-bottom: 5px;">
+                    <div class="counter-title">
                         Guia da Dezena ${mysteryIndex + 1}
                     </div>
                     ${beadsHtml}
@@ -554,61 +550,110 @@ function installPWA() {
 }
 
 function keepScreenOn() {
-  // Request a screen wake lock
-  const wakeLock = navigator.wakeLock.request();
-
-  // Listen for wake lock release
-  wakeLock.addEventListener("release", () => {
-    console.log(`Screen Wake Lock released: ${wakeLock.released}`);
-  });
-  // Manually release the wake lock
-  wakeLock.release();
+  if (navigator.wakeLock && typeof navigator.wakeLock.request === "function") {
+    navigator.wakeLock.request("screen").then((wakeLock) => {
+      wakeLock.addEventListener("release", () => {
+        console.log("Screen Wake Lock released");
+      });
+    }).catch(() => {
+      console.log("Wake Lock não disponível neste navegador");
+    });
+  }
 }
 
-// Pega os elementos
+const THEME_KEY = "santo-terco-theme";
 const contentFontZoom = document.querySelectorAll(".font-zoom");
 const increaseBtn = document.getElementById("increase-font");
 const decreaseBtn = document.getElementById("decrease-font");
+const themeToggleBtn = document.getElementById("theme-toggle");
+const installAppBtn = document.getElementById("install-app-btn");
+const connectionStatusEl = document.getElementById("connection-status");
 
-// Tamanho da fonte inicial (em pixels)
 let currentFontSize = 14;
-// Passo de alteração (o quanto vai aumentar/diminuir)
 const step = 2;
-// Limites (opcional)
 const maxFontSize = 18;
 const minFontSize = 14;
 
-/**
- * Atualiza o tamanho da fonte do elemento de conteúdo.
- */
 function updateFontSize() {
   contentFontZoom.forEach((el) => {
     el.style.fontSize = `${currentFontSize}px`;
   });
 }
 
-/**
- * Aumenta o tamanho da fonte.
- */
-increaseBtn.addEventListener("click", () => {
-  if (currentFontSize < maxFontSize) {
-    currentFontSize += step;
-    updateFontSize();
+function applyTheme(theme) {
+  const resolvedTheme = theme === "dark" ? "dark" : "light";
+  document.body.setAttribute("data-theme", resolvedTheme);
+  localStorage.setItem(THEME_KEY, resolvedTheme);
+
+  if (themeToggleBtn) {
+    themeToggleBtn.textContent = resolvedTheme === "dark" ? "☀️ Tema claro" : "🌙 Tema escuro";
+  }
+}
+
+function toggleTheme() {
+  const currentTheme = document.body.getAttribute("data-theme") === "dark" ? "dark" : "light";
+  applyTheme(currentTheme === "dark" ? "light" : "dark");
+}
+
+function updateConnectionStatus() {
+  if (!connectionStatusEl) return;
+  const isOnline = navigator.onLine;
+  connectionStatusEl.textContent = isOnline ? "Online" : "Offline";
+  connectionStatusEl.classList.toggle("online", isOnline);
+  connectionStatusEl.classList.toggle("offline", !isOnline);
+}
+
+function showInstallOption() {
+  if (installAppBtn) {
+    installAppBtn.classList.remove("hidden");
+  }
+}
+
+if (increaseBtn) {
+  increaseBtn.addEventListener("click", () => {
+    if (currentFontSize < maxFontSize) {
+      currentFontSize += step;
+      updateFontSize();
+    }
+  });
+}
+
+if (decreaseBtn) {
+  decreaseBtn.addEventListener("click", () => {
+    if (currentFontSize > minFontSize) {
+      currentFontSize -= step;
+      updateFontSize();
+    }
+  });
+}
+
+if (themeToggleBtn) {
+  themeToggleBtn.addEventListener("click", toggleTheme);
+}
+
+if (installAppBtn) {
+  installAppBtn.addEventListener("click", installPWA);
+}
+
+window.addEventListener("online", updateConnectionStatus);
+window.addEventListener("offline", updateConnectionStatus);
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  deferredPrompt = event;
+  showInstallOption();
+});
+window.addEventListener("appinstalled", () => {
+  if (installAppBtn) {
+    installAppBtn.classList.add("hidden");
   }
 });
 
-/**
- * Diminui o tamanho da fonte.
- */
-decreaseBtn.addEventListener("click", () => {
-  if (currentFontSize > minFontSize) {
-    currentFontSize -= step;
-    updateFontSize();
-  }
-});
-
-// Inicia a aplicação quando a página estiver totalmente carregada
 window.onload = () => {
+  const savedTheme = localStorage.getItem(THEME_KEY);
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  applyTheme(savedTheme || (prefersDark ? "dark" : "light"));
+  document.body.setAttribute("data-standalone", window.matchMedia("(display-mode: standalone)").matches ? "true" : "false");
+  updateConnectionStatus();
   initializeApp();
   updateFontSize();
 };

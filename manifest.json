@@ -3,7 +3,10 @@
   "short_name": "Terço",
   "start_url": "./",
   "display": "fullscreen",
-  "background_color": "#F5F5F5",
+  "orientation": "portrait",
+  "scope": "./",
+  "id": "./",
+  "background_color": "#f6efe7",
   "theme_color": "#7B0000",
   "description": "Santo Terço com meditações oficiais da Santa Sé (Vaticano).",
   "icons": [

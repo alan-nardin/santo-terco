@@ -305,7 +305,7 @@ body[data-standalone="true"] {
 
 .prayer-bead.active {
   background: var(--primary);
-  color: #fff;
+  color: #111111;
 }
 
 .prayer-bead[data-type="ave"] {
@@ -314,7 +314,7 @@ body[data-standalone="true"] {
 
 .prayer-bead[data-type="ave"].active {
   background: var(--accent);
-  color: var(--text);
+  color: #111111;
 }
 
 .title-day-selector {
@@ -333,11 +333,31 @@ body[data-standalone="true"] {
   border-radius: 999px;
   background: var(--surface-alt);
   color: var(--text);
+  min-width: 0;
+  white-space: normal;
+  line-height: 1.2;
+  padding: 0.6rem 0.5rem;
 }
 
-.day-button.active {
-  background: var(--primary);
-  color: #fff;
+@media (max-width: 640px) {
+  #day-selector {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .day-button {
+    font-size: 0.8rem;
+    min-height: 2.7rem;
+  }
+}
+
+.day-button.active,
+.day-button.active:hover,
+.day-button.active:focus,
+.day-button.active:focus-visible {
+  background-color: var(--primary) !important;
+  color: #111111 !important;
+  font-weight: 800;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
 }
 
 .prayer-content {

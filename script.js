@@ -1,291 +1,110 @@
 // Variável global para armazenar o prompt de instalação do PWA
 let deferredPrompt;
-const APP_VERSION = "v1.4"; // Versão atualizada com imagens de ícones.
+const APP_VERSION = "v1.5"; // Versão atualizada com imagens de ícones.
 
-// Imagem Placeholder Padrão
-const IMAGE_BASE_URL = "https://placehold.co/100x100/7B0000/ffffff?text=";
-
-// 1. Definição dos Mistérios com Meditações e URL da Imagem
+// 1. Definição dos Mistérios
 const MYSTERIES = [
   {
-    // 0: Domingo (Gloriosos) - Fonte: Vatican.va
     dayName: "Domingo",
     type: "Mistérios Gloriosos",
     colorClass: "color-glorious",
     mysteries: [
-      {
-        title: "1º - A Ressurreição de Nosso Senhor Jesus Cristo.",
-        meditation:
-          "«No primeiro dia da semana, muito cedo, dirigiram-se ao sepulcro [...] Por que buscais entre os mortos aquele que está vivo? Não está aqui, mas ressuscitou» (Lc 24, 1-6).",
-        imageUrl: IMAGE_BASE_URL + "RESSURREI%C3%87%C3%83O",
-      },
-      {
-        title: "2º - A Ascensão de Nosso Senhor Jesus Cristo ao Céu.",
-        meditation:
-          "«Depois que o Senhor Jesus lhes falou, foi levado ao céu e está sentado à direita de Deus» (Mc 16, 19).",
-        imageUrl: IMAGE_BASE_URL + "ASCENS%C3%83O",
-      },
-      {
-        title:
-          "3º - A Vinda do Espírito Santo sobre a Virgem Santíssima e os Apóstolos.",
-        meditation:
-          "«Chegando o dia de Pentecostes, estavam todos reunidos no mesmo lugar [...] Apareceram-lhes então umas línguas como de fogo, que se distribuíram e foram pousar sobre cada um deles. E todos ficaram cheios do Espírito Santo» (At 2, 1-4).",
-        imageUrl: IMAGE_BASE_URL + "PENTECOSTES",
-      },
-      {
-        title: "4º - A Assunção de Nossa Senhora ao Céu em corpo e alma.",
-        meditation:
-          "«[...] Porque fez em mim grandes coisas Aquele que é Poderoso; o seu Nome é Santo» (Lc 1, 49). O Catecismo ensina que Maria é levada ao Céu em corpo e alma.",
-        imageUrl: IMAGE_BASE_URL + "ASSUN%C3%87%C3%83O",
-      },
-      {
-        title:
-          "5º - A Coroação de Nossa Senhora como Rainha do Céu e da Terra.",
-        meditation:
-          "«Apareceu em seguida um grande sinal no céu: uma Mulher revestida do sol, a lua debaixo dos seus pés e na cabeça uma coroa de doze estrelas» (Ap 12, 1).",
-        imageUrl: IMAGE_BASE_URL + "COROA%C3%87%C3%83O",
-      },
+      { title: "1º - A Ressurreição de Nosso Senhor Jesus Cristo." },
+      { title: "2º - A Ascensão de Nosso Senhor Jesus Cristo ao Céu." },
+      { title: "3º - A Vinda do Espírito Santo sobre a Virgem Santíssima e os Apóstolos." },
+      { title: "4º - A Assunção de Nossa Senhora ao Céu em corpo e alma." },
+      { title: "5º - A Coroação de Nossa Senhora como Rainha do Céu e da Terra." },
     ],
   },
   {
-    // 1: Segunda-feira (Gozosos) - Fonte: Vatican.va
     dayName: "Segunda-feira",
     type: "Mistérios Gozosos",
     colorClass: "color-joyful",
     mysteries: [
-      {
-        title: "1º - A Anunciação do Anjo Gabriel à Nossa Senhora.",
-        meditation:
-          "«No sexto mês, o anjo Gabriel foi enviado por Deus a uma cidade da Galiléia, chamada Nazaré, a uma virgem desposada com um homem que se chamava José [...] e o nome da virgem era Maria» (Lc 1, 26-27).",
-        imageUrl: IMAGE_BASE_URL + "ANUNCIA%C3%87%C3%83O",
-      },
-      {
-        title: "2º - A Visita de Nossa Senhora à sua prima Santa Isabel.",
-        meditation:
-          "«Logo que Isabel ouviu a saudação de Maria, a criança estremeceu-lhe no ventre e Isabel ficou cheia do Espírito Santo» (Lc 1, 41).",
-        imageUrl: IMAGE_BASE_URL + "VISITA%C3%87%C3%83O",
-      },
-      {
-        title: "3º - O Nascimento de Jesus Cristo em Belém.",
-        meditation:
-          "«Ela deu à luz o seu filho primogênito, e envolveu-o em panos e deitou-o numa manjedoura» (Lc 2, 7).",
-        imageUrl: IMAGE_BASE_URL + "NASCIMENTO",
-      },
-      {
-        title: "4º - A Apresentação do Menino Jesus no Templo.",
-        meditation:
-          "«Quando se cumpriu o tempo da purificação, segundo a Lei de Moisés, levaram-no a Jerusalém, para o apresentarem ao Senhor» (Lc 2, 22).",
-        imageUrl: IMAGE_BASE_URL + "TEMPLO",
-      },
-      {
-        title: "5º - O Encontro do Menino Jesus no Templo, entre os Doutores.",
-        meditation:
-          "«Não sabíeis que Eu tenho de estar na casa de meu Pai?» (Lc 2, 49).",
-        imageUrl: IMAGE_BASE_URL + "DOUTORES",
-      },
+      { title: "1º - A Anunciação do Anjo Gabriel à Nossa Senhora." },
+      { title: "2º - A Visita de Nossa Senhora à sua prima Santa Isabel." },
+      { title: "3º - O Nascimento de Jesus Cristo em Belém." },
+      { title: "4º - A Apresentação do Menino Jesus no Templo." },
+      { title: "5º - O Encontro do Menino Jesus no Templo, entre os Doutores." },
     ],
   },
   {
-    // 2: Terça-feira (Dolorosos) - Fonte: Vatican.va
     dayName: "Terça-feira",
     type: "Mistérios Dolorosos",
     colorClass: "color-sorrowful",
     mysteries: [
-      {
-        title: "1º - A Agonia de Jesus no Horto das Oliveiras.",
-        meditation:
-          "«Meu Pai, se é possível, afasta de mim este cálice! Todavia não se faça o que eu quero, mas sim o que tu queres» (Mt 26, 36-39).",
-        imageUrl: IMAGE_BASE_URL + "GETS%C3%8AMANI",
-      },
-      {
-        title: "2º - A Flagelação de Jesus atado à coluna.",
-        meditation:
-          "«Então lhes soltou Barrabás; mas a Jesus mandou açoitar, e o entregou para ser crucificado» (Mt 27, 26).",
-        imageUrl: IMAGE_BASE_URL + "FLAGELA%C3%87%C3%83O",
-      },
-      {
-        title: "3º - A Coroação de espinhos de Jesus.",
-        meditation:
-          "«Despiram-no e puseram-lhe um manto escarlate. Depois, teceram uma coroa de espinhos e puseram-lha na cabeça» (Mt 27, 28-29).",
-        imageUrl: IMAGE_BASE_URL + "ESPINHOS",
-      },
-      {
-        title: "4º - Jesus carregando a Cruz para o Calvário.",
-        meditation:
-          "«Tomaram de assalto um homem de Cirene, chamado Simão, que vinha do campo, e impuseram-lhe a cruz para a levar atrás de Jesus» (Lc 23, 26).",
-        imageUrl: IMAGE_BASE_URL + "CRUZ",
-      },
-      {
-        title: "5º - A Crucificação e Morte de Nosso Senhor Jesus Cristo.",
-        meditation:
-          '«Jesus deu então um grande brado e disse: "Pai, nas tuas mãos entrego o meu espírito". Ditas estas palavras, expirou» (Lc 23, 46).',
-        imageUrl: IMAGE_BASE_URL + "CALV%C3%81RIO",
-      },
+      { title: "1º - A Agonia de Jesus no Horto das Oliveiras." },
+      { title: "2º - A Flagelação de Jesus atado à coluna." },
+      { title: "3º - A Coroação de espinhos de Jesus." },
+      { title: "4º - Jesus carregando a Cruz para o Calvário." },
+      { title: "5º - A Crucificação e Morte de Nosso Senhor Jesus Cristo." },
     ],
   },
   {
-    // 3: Quarta-feira (Gloriosos - repetição) - Fonte: Vatican.va
     dayName: "Quarta-feira",
     type: "Mistérios Gloriosos",
     colorClass: "color-glorious",
     mysteries: [
-      {
-        title: "1º - A Ressurreição de Nosso Senhor Jesus Cristo.",
-        meditation:
-          "«No primeiro dia da semana, muito cedo, dirigiram-se ao sepulcro [...] Por que buscais entre os mortos aquele que está vivo? Não está aqui, mas ressuscitou» (Lc 24, 1-6).",
-        imageUrl: IMAGE_BASE_URL + "RESSURREI%C3%87%C3%83O",
-      },
-      {
-        title: "2º - A Ascensão de Nosso Senhor Jesus Cristo ao Céu.",
-        meditation:
-          "«Depois que o Senhor Jesus les falou, foi levado ao céu e está sentado à direita de Deus» (Mc 16, 19).",
-        imageUrl: IMAGE_BASE_URL + "ASCENS%C3%83O",
-      },
-      {
-        title:
-          "3º - A Vinda do Espírito Santo sobre a Virgem Santíssima e os Apóstolos.",
-        meditation:
-          "«Chegando o dia de Pentecostes, estavam todos reunidos no mesmo lugar [...] Apareceram-lhes então umas línguas como de fogo, que se distribuíram e foram pousar sobre cada um deles. E todos ficaram cheios do Espírito Santo» (At 2, 1-4).",
-        imageUrl: IMAGE_BASE_URL + "PENTECOSTES",
-      },
-      {
-        title: "4º - A Assunção de Nossa Senhora ao Céu em corpo e alma.",
-        meditation:
-          "«[...] Porque fez em mim grandes coisas Aquele que é Poderoso; o seu Nome é Santo» (Lc 1, 49). O Catecismo ensina que Maria é levada ao Céu em corpo e alma.",
-        imageUrl: IMAGE_BASE_URL + "ASSUN%C3%87%C3%83O",
-      },
-      {
-        title:
-          "5º - A Coroação de Nossa Senhora como Rainha do Céu e da Terra.",
-        meditation:
-          "«Apareceu em seguida um grande sinal no céu: uma Mulher revestida do sol, a lua debaixo dos seus pés e na cabeça uma coroa de doze estrelas» (Ap 12, 1).",
-        imageUrl: IMAGE_BASE_URL + "COROA%C3%87%C3%83O",
-      },
+      { title: "1º - A Ressurreição de Nosso Senhor Jesus Cristo." },
+      { title: "2º - A Ascensão de Nosso Senhor Jesus Cristo ao Céu." },
+      { title: "3º - A Vinda do Espírito Santo sobre a Virgem Santíssima e os Apóstolos." },
+      { title: "4º - A Assunção de Nossa Senhora ao Céu em corpo e alma." },
+      { title: "5º - A Coroação de Nossa Senhora como Rainha do Céu e da Terra." },
     ],
   },
   {
-    // 4: Quinta-feira (Luminosos) - Fonte: Vatican.va
     dayName: "Quinta-feira",
     type: "Mistérios Luminosos",
     colorClass: "color-luminous",
     mysteries: [
-      {
-        title: "1º - O Batismo de Jesus no rio Jordão.",
-        meditation:
-          '«E do céu baixou uma voz: "Eis meu Filho muito amado em quem ponho minha afeição"» (Mt 3, 16-17).',
-        imageUrl: IMAGE_BASE_URL + "BATISMO",
-      },
-      {
-        title: "2º - A Auto-revelação de Jesus nas Bodas de Caná.",
-        meditation:
-          "«Este foi o primeiro dos seus milagres; realizou-o em Caná da Galileia. Manifestou a sua glória e os seus discípulos creram nele» (Jo 2, 11).",
-        imageUrl: IMAGE_BASE_URL + "CAN%C3%81",
-      },
-      {
-        title: "3º - O Anúncio do Reino de Deus e o convite à conversão.",
-        meditation:
-          "«Completou-se o tempo e o Reino de Deus está próximo; fazei penitência e crede no Evangelho» (Mc 1, 15).",
-        imageUrl: IMAGE_BASE_URL + "REINO",
-      },
-      {
-        title: "4º - A Transfiguração de Jesus no Monte Tabor.",
-        meditation:
-          "«O seu rosto brilhou como o sol, e as suas vestes tornaram-se brancas como a luz» (Mt 17, 2).",
-        imageUrl: IMAGE_BASE_URL + "TRANSFIGURA%C3%87%C3%83O",
-      },
-      {
-        title: "5º - A Instituição da Santíssima Eucaristia.",
-        meditation:
-          '«Durante a refeição, Jesus tomou o pão, benzeu-o, partiu-o e o deu aos discípulos, dizendo: "Tomai e comei, isto é meu corpo"» (Mt 26, 26).',
-        imageUrl: IMAGE_BASE_URL + "EUCARISTIA",
-      },
+      { title: "1º - O Batismo de Jesus no rio Jordão." },
+      { title: "2º - A Auto-revelação de Jesus nas Bodas de Caná." },
+      { title: "3º - O Anúncio do Reino de Deus e o convite à conversão." },
+      { title: "4º - A Transfiguração de Jesus no Monte Tabor." },
+      { title: "5º - A Instituição da Santíssima Eucaristia." },
     ],
   },
   {
-    // 5: Sexta-feira (Dolorosos - repetição) - Fonte: Vatican.va
     dayName: "Sexta-feira",
     type: "Mistérios Dolorosos",
     colorClass: "color-sorrowful",
     mysteries: [
-      {
-        title: "1º - A Agonia de Jesus no Horto das Oliveiras.",
-        meditation:
-          "«Meu Pai, se é possível, afasta de mim este cálice! Todavia não se faça o que eu quero, mas sim o que tu queres» (Mt 26, 36-39).",
-        imageUrl: IMAGE_BASE_URL + "GETS%C3%8AMANI",
-      },
-      {
-        title: "2º - A Flagelação de Jesus atado à coluna.",
-        meditation:
-          "«Então lhes soltou Barrabás; mas a Jesus mandou açoitar, e o entregou para ser crucificado» (Mt 27, 26).",
-        imageUrl: IMAGE_BASE_URL + "FLAGELA%C3%87%C3%83O",
-      },
-      {
-        title: "3º - A Coroação de espinhos de Jesus.",
-        meditation:
-          "«Despiram-no e puseram-lhe um manto escarlate. Depois, teceram uma coroa de espinhos e puseram-lha na cabeça» (Mt 27, 28-29).",
-        imageUrl: IMAGE_BASE_URL + "ESPINHOS",
-      },
-      {
-        title: "4º - Jesus carregando a Cruz para o Calvário.",
-        meditation:
-          "«Tomaram de assalto um homem de Cirene, chamado Simão, que vinha do campo, e impuseram-lhe a cruz para a levar atrás de Jesus» (Lc 23, 26).",
-        imageUrl: IMAGE_BASE_URL + "CRUZ",
-      },
-      {
-        title: "5º - A Crucificação e Morte de Nosso Senhor Jesus Cristo.",
-        meditation:
-          '«Jesus deu então um grande brado e disse: "Pai, nas tuas mãos entrego o meu espírito". Ditas estas palavras, expirou» (Lc 23, 46).',
-        imageUrl: IMAGE_BASE_URL + "CALV%C3%81RIO",
-      },
+      { title: "1º - A Agonia de Jesus no Horto das Oliveiras." },
+      { title: "2º - A Flagelação de Jesus atado à coluna." },
+      { title: "3º - A Coroação de espinhos de Jesus." },
+      { title: "4º - Jesus carregando a Cruz para o Calvário." },
+      { title: "5º - A Crucificação e Morte de Nosso Senhor Jesus Cristo." },
     ],
   },
   {
-    // 6: Sábado (Gozosos - repetição) - Fonte: Vatican.va
     dayName: "Sábado",
     type: "Mistérios Gozosos",
     colorClass: "color-joyful",
     mysteries: [
-      {
-        title: "1º - A Anunciação do Anjo Gabriel à Nossa Senhora.",
-        meditation:
-          "«No sexto mês, o anjo Gabriel foi enviado por Deus a uma cidade da Galiléia, chamada Nazaré, a uma virgem desposada com um homem que se chamava José [...] e o nome da virgem era Maria» (Lc 1, 26-27).",
-        imageUrl: IMAGE_BASE_URL + "ANUNCIA%C3%87%C3%83O",
-      },
-      {
-        title: "2º - A Visita de Nossa Senhora à sua prima Santa Isabel.",
-        meditation:
-          "«Logo que Isabel ouviu a saudação de Maria, a criança estremeceu-lhe no ventre e Isabel ficou cheia do Espírito Santo» (Lc 1, 41).",
-        imageUrl: IMAGE_BASE_URL + "VISITA%C3%87%C3%83O",
-      },
-      {
-        title: "3º - O Nascimento de Jesus Cristo em Belém.",
-        meditation:
-          "«Ela deu à luz o seu filho primogênito, e envolveu-o em panos e deitou-o numa manjedoura» (Lc 2, 7).",
-        imageUrl: IMAGE_BASE_URL + "NASCIMENTO",
-      },
-      {
-        title: "4º - A Apresentação do Menino Jesus no Templo.",
-        meditation:
-          "«Quando se cumpriu o tempo da purificação, segundo a Lei de Moisés, levaram-no a Jerusalém, para o apresentarem ao Senhor» (Lc 2, 22).",
-        imageUrl: IMAGE_BASE_URL + "TEMPLO",
-      },
-      {
-        title: "5º - O Encontro do Menino Jesus no Templo, entre os Doutores.",
-        meditation:
-          "«Não sabíeis que Eu tenho de estar na casa de meu Pai?» (Lc 2, 49).",
-        imageUrl: IMAGE_BASE_URL + "DOUTORES",
-      },
+      { title: "1º - A Anunciação do Anjo Gabriel à Nossa Senhora." },
+      { title: "2º - A Visita de Nossa Senhora à sua prima Santa Isabel." },
+      { title: "3º - O Nascimento de Jesus Cristo em Belém." },
+      { title: "4º - A Apresentação do Menino Jesus no Templo." },
+      { title: "5º - O Encontro do Menino Jesus no Templo, entre os Doutores." },
     ],
   },
 ];
 
 const dayNamesShort = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SÁB"];
 
-function getMysteryIconLabel(imageUrl) {
-  if (!imageUrl) return "✦";
+function getMysteryIconLabel(title) {
+  const cleanTitle = (title || "").replace(/^\d+º - /, "").trim();
+  if (!cleanTitle) return "✦";
 
-  const text = imageUrl.replace(IMAGE_BASE_URL, "");
-  return decodeURIComponent(text) || "✦";
+  const words = cleanTitle.split(/\s+/).filter(Boolean);
+  const meaningfulWords = words.filter(
+    (word) => !["de", "do", "da", "dos", "das", "e", "a", "o", "no", "na", "em", "ao", "à", "as", "os"].includes(word.toLowerCase()),
+  );
+
+  const labelSource = meaningfulWords[0] || words[0];
+  const normalized = labelSource.replace(/[.,;]/g, "").toUpperCase();
+
+  return normalized.length > 10 ? normalized.slice(0, 10) : normalized;
 }
 
 /**
@@ -312,12 +131,11 @@ function displayMysteries(dayIndex, isToday = false) {
     .map(
       (m, index) => `
                 <li>
-                    <div class="mystery-icon ${data.colorClass}" aria-hidden="true">${getMysteryIconLabel(m.imageUrl)}</div>
+                    <div class="mystery-icon ${data.colorClass}" aria-hidden="true">${getMysteryIconLabel(m.title)}</div>
                     <div class="mystery-content">
                         <div class="mystery-header">
                             <h4 class="mystery-title">${index + 1}º - ${m.title.replace(/(\dº - )/, "")}</h4>
                         </div>
-                        <p class="meditation-text">${m.meditation}</p>
                         ${createPrayerCounterHtml(index)}
                     </div>
                 </li>
@@ -569,10 +387,10 @@ const themeToggleBtn = document.getElementById("theme-toggle");
 const installAppBtn = document.getElementById("install-app-btn");
 const connectionStatusEl = document.getElementById("connection-status");
 
-let currentFontSize = 14;
+let currentFontSize = 16;
 const step = 2;
-const maxFontSize = 18;
-const minFontSize = 14;
+const maxFontSize = 22;
+const minFontSize = 16;
 
 function updateFontSize() {
   contentFontZoom.forEach((el) => {

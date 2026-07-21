@@ -2,13 +2,13 @@
   "name": "Santo Terço",
   "short_name": "Terço",
   "start_url": "./",
-  "display": "fullscreen",
+  "display": "standalone",
   "orientation": "portrait",
   "scope": "./",
   "id": "./",
   "background_color": "#f6efe7",
   "theme_color": "#7B0000",
-  "description": "Santo Terço com meditações oficiais da Santa Sé (Vaticano).",
+  "description": "Santo Terço com meditações para oração diária.",
   "icons": [
     {
       "src": "https://placehold.co/192x192/7B0000/ffffff?text=Terço",

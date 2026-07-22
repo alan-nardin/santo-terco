@@ -1,9 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap");
 
 :root {
-  --primary-color: #7b0000; /* Vermelho Devocional */
-  --secondary-color: #8d6e63; /* Marrom Claro */
-  --accent-color: #ffc107; /* Ouro/Amarelo */
+  --primary-color: #7b0000;
+  /* Vermelho Devocional */
+  --secondary-color: #8d6e63;
+  /* Marrom Claro */
+  --accent-color: #ffc107;
+  /* Ouro/Amarelo */
 
   /* Theme-aware variables (light defaults) */
   --background: #f5f5f5;
@@ -70,32 +73,32 @@ main {
   text-align: center;
 }
 
-#mystery-type-box {
-  padding: 10px 15px;
-  border-radius: 5px;
-  text-align: center;
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-  color: white;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 2px 5px 0px var(--primary-color);
+#mystery-type {
   color: var(--primary-color);
-  border: 1px solid var(--primary-color);
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .color-glorious {
   background-color: #ffb300;
-} /* Ouro */
+}
+
+/* Ouro */
 .color-joyful {
   background-color: #1976d2;
-} /* Azul */
+}
+
+/* Azul */
 .color-sorrowful {
   background-color: #d32f2f;
-} /* Vermelho */
+}
+
+/* Vermelho */
 .color-luminous {
   background-color: #4caf50;
-} /* Verde */
+}
+
+/* Verde */
 
 #mysteries-list {
   list-style: none;
@@ -108,11 +111,13 @@ main {
   border-radius: 5px;
   margin-bottom: 20px;
 
-  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.05);
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s;
   border: 1px solid var(--border-color);
-  display: flex; /* Habilita flexbox para alinhar itens */
-  flex-direction: column; /* Coloca a imagem acima do texto em telas pequenas */
+  display: flex;
+  /* Habilita flexbox para alinhar itens */
+  flex-direction: column;
+  /* Coloca a imagem acima do texto em telas pequenas */
 }
 
 .mystery-header {
@@ -135,13 +140,15 @@ main {
 }
 
 .mystery-image {
-  width: 100px; /* Tamanho fixo para ícone */
+  width: 100px;
+  /* Tamanho fixo para ícone */
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--accent-color);
+  border: 1.5px solid var(--accent-color);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  margin: 0 auto 15px auto; /* Centraliza a imagem e adiciona margem abaixo */
+  margin: 0 auto 15px auto;
+  /* Centraliza a imagem e adiciona margem abaixo */
   display: block;
 }
 
@@ -150,38 +157,32 @@ main {
   font-weight: 700;
   color: var(--primary-color);
   margin-bottom: 8px;
-  text-align: center; /* Centraliza o título */
-}
-
-.meditation-text {
-  font-size: 0.95rem;
-  color: var(--text-color);
-  line-height: 1.5;
-  font-style: italic;
-  /* Estiliza o texto do catecismo/bíblia */
-  border-left: 3px solid var(--accent-color);
-  padding-left: 8px;
-  margin-top: 10px;
+  text-align: center;
+  /* Centraliza o título */
 }
 
 .prayer-counter-deck {
   display: grid;
-  grid-template-columns: repeat(6, 1fr); /* 6 colunas iguais */
-  gap: 6px; /* Espaçamento menor */
+  grid-template-columns: repeat(6, 1fr);
+  /* 6 colunas iguais */
+  gap: 6px;
+  /* Espaçamento menor */
   padding: 10px 0;
-  margin-top: 15px; /* Separa do texto da meditação */
-  border-top: 1px solid #eee;
-  padding-top: 15px;
+  padding-top: 5px;
 }
 
 .prayer-bead {
-  width: 42px; /* Menor e Uniforme */
-  height: 42px; /* Menor e Uniforme */
+  width: 42px;
+  /* Menor e Uniforme */
+  height: 42px;
+  /* Menor e Uniforme */
   border-radius: 50%;
-  border: 2px solid var(--primary-color);
-  background-color: var(--bead-bg); /* Cinza Inativo */
+  border: 1.5px solid var(--primary-color);
+  background-color: var(--bead-bg);
+  /* Cinza Inativo */
   color: var(--bead-text);
-  font-size: 0.7rem; /* Fonte menor */
+  font-size: 0.7rem;
+  /* Fonte menor */
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -207,7 +208,8 @@ main {
 }
 
 .prayer-bead[data-type="pater"] {
-  border-color: var(--accent-color); /* Dourado */
+  border-color: var(--accent-color);
+  /* Dourado */
 }
 
 .prayer-bead[data-type="pater"].active {
@@ -216,11 +218,13 @@ main {
 }
 
 .prayer-bead[data-type="gloria"] {
-  border-color: #4caf50; /* Verde, cor do Mistério Luminoso */
+  border-color: #4caf50;
+  /* Verde, cor do Mistério Luminoso */
 }
 
 .prayer-bead[data-type="gloria"].active {
-  background-color: #4caf50; /* Verde */
+  background-color: #4caf50;
+  /* Verde */
   color: white;
 }
 
@@ -299,6 +303,7 @@ button {
   animation: spin 1s linear infinite;
   margin: 0 auto;
 }
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -309,63 +314,80 @@ button {
   header h1 {
     font-size: 2.8rem;
   }
+
   #day-selector {
     gap: 10px;
   }
+
   #day-selector button {
     font-size: 0.9rem;
     padding: 12px 5px;
   }
+
   #mysteries-list li {
     flex-direction: row;
     align-items: flex-start;
     gap: 15px;
   }
+
   .mystery-image {
     margin: 0;
-    flex-shrink: 0; /* Impede que a imagem encolha */
+    flex-shrink: 0;
+    /* Impede que a imagem encolha */
   }
+
   .mystery-content {
     text-align: left;
   }
+
   .mystery-title {
     text-align: left;
   }
+
   .mystery-header {
     margin-top: 0;
-    display: block; /* Usa a imagem separada do título agora */
+    display: block;
+    /* Usa a imagem separada do título agora */
   }
+
   .meditation-text {
     margin-top: 0;
   }
 }
+
 .prayer-content {
   font-size: 14px;
   padding: 10px;
   font-style: italic;
   text-align: justify;
 }
+
 .prayer-content h3 {
   color: var(--primary-color);
 }
+
 .prayer-content div {
   margin-bottom: 10px;
   color: var(--text-color);
 }
+
 .prayer-content ol {
   margin-left: 10px;
   padding: 0;
   margin-bottom: 10px;
   color: var(--text-color);
 }
+
 .zoom-control-deck {
   display: flex;
   justify-content: flex-end;
   gap: 15px;
 }
+
 .zoom-control-deck button {
   width: 70px;
 }
+
 footer {
   text-align: center;
   font-size: 0.8rem;
@@ -375,7 +397,10 @@ footer {
 }
 
 /* Header theme toggle */
-header { position: relative; }
+header {
+  position: relative;
+}
+
 #theme-toggle {
   position: absolute;
   right: 12px;
@@ -400,5 +425,5 @@ body[data-theme="dark"] {
   --border-color: #2a2a2a;
   --bead-bg: #2a2a2a;
   --bead-text: #ddd;
-  --primary-color: #ff6b6b;
+  --primary-color: #b32828;
 }

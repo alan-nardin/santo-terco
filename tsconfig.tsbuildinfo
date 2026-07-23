@@ -1,1 +1,0 @@
-{"root":["./src/App.tsx","./src/data.ts","./src/main.tsx","./src/components/DaySelector.tsx","./src/components/FinalPrayerBlockList.tsx","./src/components/MysteryCard.tsx","./src/components/PrayerBlockList.tsx","./src/components/PrayerDeck.tsx","./src/components/PrayerTextBlock.tsx","./src/components/ThemeToggle.tsx"],"version":"5.9.3"}

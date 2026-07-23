@@ -79,27 +79,6 @@ main {
   margin-bottom: 10px;
 }
 
-.color-glorious {
-  background-color: #ffb300;
-}
-
-/* Ouro */
-.color-joyful {
-  background-color: #1976d2;
-}
-
-/* Azul */
-.color-sorrowful {
-  background-color: #d32f2f;
-}
-
-/* Vermelho */
-.color-luminous {
-  background-color: #4caf50;
-}
-
-/* Verde */
-
 #mysteries-list {
   list-style: none;
   padding: 0;
@@ -382,6 +361,15 @@ button {
   display: flex;
   justify-content: flex-end;
   gap: 15px;
+}
+
+.deck-label {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #777;
+  margin-bottom: 5px;
 }
 
 .zoom-control-deck button {
